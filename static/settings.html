@@ -1,6 +1,21 @@
-<setting-section class="settings">
+<setting-section class="settings" data-title="插件市场">
     <setting-pannel>
-        <setting-list data-direction="column" data-title="设置" is-collapsible>
+        <setting-list
+            data-direction="column"
+            data-title="搜索选项"
+            is-collapsible
+        >
+            <setting-item data-direction="row">
+                <div>
+                    <setting-text>项目代码 & 问题反馈</setting-text>
+                    <setting-text
+                        >🌟https://github.com/bcmRayCrazy-coder/NotPluginMarketplace</setting-text
+                    >
+                </div>
+                <setting-button data-type="secondary" id="open_project"
+                    >打开网址</setting-button
+                >
+            </setting-item>
             <setting-item data-direction="row">
                 <div style="width: 65%">
                     <setting-text>插件仓库地址</setting-text>
@@ -20,17 +35,63 @@
                 >
             </setting-item>
             <setting-item data-direction="row">
-                <div>
-                    <setting-text>项目代码 & 问题反馈</setting-text>
-                    <setting-text
-                        >🌟https://github.com/bcmRayCrazy-coder/NotPluginMarketplace</setting-text
-                    >
+                <div style="width: 65%">
+                    <setting-text>搜索插件</setting-text>
+                    <input
+                        type="text"
+                        id="search_input"
+                        spellcheck="false"
+                        placeholder="输入名称"
+                        class="input_text"
+                    />
                 </div>
-                <setting-button data-type="secondary" id="open_project"
-                    >打开网址</setting-button
+                <setting-button data-type="secondary" id="paste_remote"
+                    >粘贴</setting-button
+                >
+                <setting-button data-type="secondary" id="open_remote"
+                    >搜索</setting-button
                 >
             </setting-item>
         </setting-list>
+        <div data-title="插件列表" class="plugin_list">
+            <!-- Example -->
+            <div class="item">
+                <div>
+                    <setting-text>Title</setting-text>
+                    <setting-text data-type="secondary"
+                        >Description</setting-text
+                    >
+                </div>
+                <div>
+                    <setting-button>查看</setting-button>
+                    <setting-button>安装</setting-button>
+                </div>
+            </div>
+            <div class="item">
+                <div>
+                    <setting-text>Title</setting-text>
+                    <setting-text data-type="secondary"
+                        >Description</setting-text
+                    >
+                </div>
+                <div>
+                    <setting-button>查看</setting-button>
+                    <setting-button>安装</setting-button>
+                </div>
+            </div>
+            <div class="item">
+                <div>
+                    <setting-text>Title</setting-text>
+                    <setting-text data-type="secondary"
+                        >Description</setting-text
+                    >
+                </div>
+                <div>
+                    <setting-button>查看</setting-button>
+                    <setting-button>安装</setting-button>
+                </div>
+            </div>
+        </div>
     </setting-pannel>
 </setting-section>
 <style>
@@ -38,6 +99,20 @@
         height: 24px;
         border-radius: 12px;
         width: 100%;
-        color: var(--on-theme-text-color);
+        color: var(--text_primary);
+    }
+
+    .plugin_list {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+
+    .plugin_list .item {
+        background-color: var(--overlay_top);
+        display: flex;
+        flex-direction: row;
+        border-radius: 12px;
+        padding: 8px 8px;
+        margin: 4px 4px;
     }
 </style>
