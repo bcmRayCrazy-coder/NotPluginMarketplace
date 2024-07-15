@@ -1,4 +1,3 @@
-# Plugin-Template
+# Not Plugin Marketplace
 
-LiteLoaderQQNT的插件模板  
-LiteLoaderQQNT本体：[LiteLoaderQQNT](https://github.com/mo-jinran/LiteLoaderQQNT)
+简称 npm(误)，是或不是LiteloaderQQNT插件市场

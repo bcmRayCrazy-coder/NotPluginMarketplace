@@ -1,17 +1,16 @@
 {
-    "$schema": "./manifest_schema.json",
     "manifest_version": 4,
     "type": "extension",
-    "name": "插件模板",
-    "slug": "plugin_template",
-    "description": "LiteLoaderQQNT 的插件模板",
+    "name": "不是插件市场",
+    "slug": "not_plugin_marketplace",
+    "description": "简称npm(误)，是或不是插件市场",
     "version": "0.1.0",
     "icon": "./icon.png",
     "thumb": "./icon.svg",
     "authors": [
         {
-            "name": "LiteLoaderQQNT",
-            "link": "https://github.com/LiteLoaderQQNT"
+            "name": "bcmray_crazy",
+            "link": "https://github.com/bcmRayCrazy-coder"
         }
     ],
     "platform": [
@@ -25,11 +24,10 @@
         "preload": "./src/preload.js"
     },
     "repository": {
-        "repo": "LiteLoaderQQNT/Plugin-Template",
+        "repo": "bcmRayCrazy-coder/NotPluginMarketplace",
         "branch": "main",
         "release": {
-            "tag": "0.1.0",
-            "file": "Plugin-Template.zip"
+            "tag": "0.1.0"
         }
     }
 }

@@ -1,0 +1,40 @@
+<setting-section class="settings">
+    <setting-pannel>
+        <setting-list data-direction="column" data-title="设置" is-collapsible>
+            <setting-item data-direction="row">
+                <div style="width: 80%">
+                    <setting-text>插件仓库地址</setting-text>
+                    <input
+                        type="text"
+                        id="remote_url"
+                        spellcheck="false"
+                        placeholder="获取中"
+                        class="input_text"
+                    />
+                </div>
+                <setting-button data-type="secondary" id="open_remote"
+                    >打开网址</setting-button
+                >
+            </setting-item>
+            <setting-item data-direction="row">
+                <div>
+                    <setting-text>项目代码 & 问题反馈</setting-text>
+                    <setting-text
+                        >🌟https://github.com/bcmRayCrazy-coder/NotPluginMarketplace</setting-text
+                    >
+                </div>
+                <setting-button data-type="secondary" id="open_project"
+                    >打开网址</setting-button
+                >
+            </setting-item>
+        </setting-list>
+    </setting-pannel>
+</setting-section>
+<style>
+    .input_text {
+        height: 24px;
+        border-radius: 12px;
+        width: 100%;
+        color: var(--on-theme-text-color);
+    }
+</style>
