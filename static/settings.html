@@ -54,41 +54,25 @@
             </setting-item>
         </setting-list>
         <div data-title="插件列表" class="plugin_list">
-            <!-- Example -->
-            <div class="item">
-                <div>
-                    <setting-text>Title</setting-text>
-                    <setting-text data-type="secondary"
+            <!-- Template -->
+            <div class="item" data-plugin="a/b">
+                <div class="content">
+                    <div class="info">
+                        <img src="" alt="" />
+                        <div>
+                            <setting-text class="title">Title</setting-text>
+                            <setting-text data-type="secondary" class="version"
+                                >1.0.0</setting-text
+                            >
+                        </div>
+                    </div>
+                    <setting-text data-type="secondary" class="description"
                         >Description</setting-text
                     >
                 </div>
-                <div>
-                    <setting-button>查看</setting-button>
-                    <setting-button>安装</setting-button>
-                </div>
-            </div>
-            <div class="item">
-                <div>
-                    <setting-text>Title</setting-text>
-                    <setting-text data-type="secondary"
-                        >Description</setting-text
-                    >
-                </div>
-                <div>
-                    <setting-button>查看</setting-button>
-                    <setting-button>安装</setting-button>
-                </div>
-            </div>
-            <div class="item">
-                <div>
-                    <setting-text>Title</setting-text>
-                    <setting-text data-type="secondary"
-                        >Description</setting-text
-                    >
-                </div>
-                <div>
-                    <setting-button>查看</setting-button>
-                    <setting-button>安装</setting-button>
+                <div class="action">
+                    <setting-button id="view">查看</setting-button>
+                    <setting-button id="install">安装</setting-button>
                 </div>
             </div>
         </div>
@@ -104,7 +88,7 @@
 
     .plugin_list {
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: 45% 45%;
     }
 
     .plugin_list .item {
@@ -114,5 +98,42 @@
         border-radius: 12px;
         padding: 8px 8px;
         margin: 4px 4px;
+        justify-content: space-between;
+    }
+
+    .plugin_list .item .content .info {
+        height: 34px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .plugin_list .item .content .info img {
+        border-radius: 6px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .plugin_list .item .content .info div {
+        margin-left: 6px;
+    }
+
+    .plugin_list .item .content .info div .title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+
+    .plugin_list .item .content .description {
+        margin-top: 4px;
+    }
+
+    .plugin_list .item .action {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .plugin_list .item .action * {
+        margin-bottom: 4px;
     }
 </style>
