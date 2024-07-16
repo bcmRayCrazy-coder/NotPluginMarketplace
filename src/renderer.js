@@ -13,36 +13,7 @@ function debounce(fn, time) {
 
 // 生成插件元素
 function getPluginElement(plugin, title, version, description, image) {
-    return `<div class="item"><div class="content"><div class="info"><img src="${image}" alt="" /><div><setting-text class="title">${title}</setting-text><setting-text data-type="secondary" class="version" >${version}</setting-text ></div></div><setting-text data-type="secondary" class="description" >${description}</setting-text ></div><div class="action"><setting-button id="view" data-plugin="${plugin}">查看</setting-button><setting-button id="install" data-plugin="${plugin}">安装</setting-button></div></div>`;
-}
-
-// 更新插件列表
-function updatePluginList(view, list = []) {
-    const pluginList = view.querySelector('#plugin_list');
-    pluginList.innerHTML = '';
-
-    const tip = view.querySelector('#tip');
-    if (list.length <= 0) {
-        tip.innerText = '啥也没找到';
-        return;
-    } else {
-        tip.innerText = '';
-    }
-
-    list.forEach(({ plugin, title, version, description, image }) => {
-        pluginList.innerHTML += getPluginElement(
-            plugin,
-            title,
-            version,
-            description,
-            image
-        );
-        pluginList
-            .querySelectorAll('#view')
-            .forEach((viewBtn) =>
-                viewBtn.addEventListener(() => console.log(viewBtn))
-            );
-    });
+    return `<div class="item"><div class="content"><div class="info"><img src="${image}" alt="" /><div><setting-text class="title">${title}</setting-text><setting-text data-type="secondary" class="version" >${version}</setting-text ></div></div><p data-type="secondary" class="description" >${description}</p></div><div class="action"><setting-button id="view" data-plugin="${plugin}">查看</setting-button><setting-button id="install" data-plugin="${plugin}">安装</setting-button></div></div>`;
 }
 
 // 设置
@@ -86,13 +57,82 @@ export const onSettingWindowCreated = async (view) => {
         );
     }
 
-    initUrlInput('repository','repositoryUrl');
-    initUrlInput('remote','remoteUrl');
-    initUrlInput('download','downloadUrl');
+    async function updatePage(data, start) {
+        const pluginListElement = view.querySelector('#plugin_list');
+        pluginListElement.innerHTML = '';
+        const tip = view.querySelector('#tip');
+        if (data.length <= 0) {
+            tip.innerText = '啥也没找到';
+            return;
+        } else {
+            tip.innerText = '';
+        }
+
+        data.slice(start * 10, start * 10 + 10).forEach(
+            async ({ repo, branch }) => {
+                const { data: manifest, err } = await llnpm.getPluginManifest(
+                    repo,
+                    branch
+                );
+
+                if (err) return alert('出现错误:', err);
+                if (manifest.version < 4) return;
+
+                pluginListElement.innerHTML += getPluginElement(
+                    repo,
+                    manifest.name,
+                    manifest.version,
+                    manifest.description,
+                    manifest.icon
+                        ? `https://raw.githubusercontent.com/${repo}/${branch}/${manifest.icon}`
+                        : ''
+                );
+
+                pluginListElement.querySelectorAll('#view').forEach((viewBtn) =>
+                    viewBtn.addEventListener('click', ({ target }) => {
+                        llnpm.openUrl(
+                            'https://github.com/' + target.dataset.plugin
+                        );
+                    })
+                );
+            }
+        );
+    }
+
+    async function initPluginList() {
+        const tip = view.querySelector('#tip');
+        const pageSelector = view.querySelector('#page_select');
+
+        pageSelector.innerHTML = '';
+
+        const { data, err } = await llnpm.getPluginList();
+        if (err) {
+            tip.innerText = '无法获取插件列表:\n' + pluginList.err;
+            return;
+        }
+        tip.innerText = '加载中';
+
+        updatePage(data, 0);
+        for (let i = 0; i < data.length / 10; i++) {
+            pageSelector.innerHTML += `<setting-option data-value="${i}">${
+                i + 1
+            }</setting-option>`;
+        }
+        pageSelector.addEventListener('selected', ({ detail: { value } }) => {
+            console.log(value);
+            updatePage(data, parseInt(value));
+        });
+    }
+
+    initUrlInput('repository', 'repositoryUrl');
+    initUrlInput('remote', 'remoteUrl');
+    initUrlInput('download', 'downloadUrl');
 
     view.querySelector('#open_project').addEventListener('click', () =>
         llnpm.openUrl(
             'https://github.com/bcmRayCrazy-coder/NotPluginMarketplace'
         )
     );
+
+    initPluginList();
 };

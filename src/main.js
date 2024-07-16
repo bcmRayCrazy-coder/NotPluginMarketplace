@@ -18,7 +18,7 @@ function loadPlugin() {
         repositoryUrl:
             'https://mirror.ghproxy.com/https://raw.githubusercontent.com/LiteLoaderQQNT/Plugin-List/v4/plugins.json',
         remoteUrl:
-            'https://mirror.ghproxy.com/https://raw.githubusercontent.com/{plugin}/{branch}/manifest.json',
+            'https://mirror.ghproxy.com/https://raw.githubusercontent.com/{repo}/{branch}/manifest.json',
         downloadUrl: 'https://mirror.ghproxy.com/{url}',
     };
 
@@ -71,13 +71,13 @@ function loadPlugin() {
     // 获取插件manifest
     ipcMain.handle(
         `LiteLoader.${pluginName}.getPluginManifest`,
-        async (event, plugin, branch) => {
+        async (event, repo, branch) => {
             try {
                 var { remoteUrl } = getConfig(configPath);
                 const pluginList = await (
                     await fetch(
                         remoteUrl
-                            .replaceAll('{plugin}', plugin)
+                            .replaceAll('{repo}', repo)
                             .replaceAll('{branch}', branch)
                     )
                 ).json();

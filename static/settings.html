@@ -70,7 +70,8 @@
                     >打开网址</setting-button
                 >
             </setting-item>
-            <setting-item data-direction="row">
+            <!-- TODO: 搜索插件 -->
+            <!-- <setting-item data-direction="row">
                 <div style="width: 65%">
                     <setting-text>搜索插件</setting-text>
                     <input
@@ -87,6 +88,16 @@
                 <setting-button data-type="secondary" id="open_repository"
                     >搜索</setting-button
                 >
+            </setting-item> -->
+        </setting-list>
+        <setting-list data-direction="column">
+            <setting-item data-direction="row">
+                <setting-text>页面</setting-text>
+                <setting-select id="page_select">
+                    <setting-option data-value="0" is-selected
+                        >1</setting-option
+                    >
+                </setting-select>
             </setting-item>
         </setting-list>
         <div data-title="插件列表" class="plugin-list" id="plugin_list">
@@ -108,7 +119,8 @@
 
     .plugin-list {
         display: grid;
-        grid-template-columns: 45% 45%;
+        grid-template-columns: 48% 48%;
+        gap: 6px 6px;
     }
 
     .plugin-list .item {
@@ -122,7 +134,7 @@
     }
 
     .plugin-list .item .content .info {
-        height: 34px;
+        /* height: 34px; */
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -146,6 +158,8 @@
 
     .plugin-list .item .content .description {
         margin-top: 4px;
+        word-wrap: break-word;
+        color: rgba(255, 255, 255, 0.9);
     }
 
     .plugin-list .item .action {
