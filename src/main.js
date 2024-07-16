@@ -11,7 +11,7 @@ function loadPlugin() {
 
     // 默认配置
     const defaultConfig = {
-        remoteUrl:
+        repositoryUrl:
             'https://mirror.ghproxy.com/https://raw.githubusercontent.com/LiteLoaderQQNT/Plugin-List/v4/plugins.json',
     };
     // 初始化配置

@@ -54,34 +54,34 @@ export const onSettingWindowCreated = async (view) => {
     var config = await llnpm.getConfig();
     if (config.err) return alert('获取配置错误:\n', config.err);
 
-    const remoteUrlInput = view.querySelector('#remote_url');
-    remoteUrlInput.addEventListener(
+    const repositoryUrlInput = view.querySelector('#repository_url');
+    repositoryUrlInput.addEventListener(
         'input',
-        debounce(async ({ target: { value: newRemote } }) => {
-            if (!new RegExp(/^(http|https):\/\/(S+)$/).test(newRemote)) return;
-            config.remoteUrl = newRemote;
+        debounce(async ({ target: { value: newRepository } }) => {
+            if (!new RegExp(/^(http|https):\/\/(S+)$/).test(newRepository)) return;
+            config.repositoryUrl = newRepository;
             const err = await llnpm.setConfig(config);
             if (err) alert('更新配置错误:\n' + err);
         }, 500)
     );
-    remoteUrlInput.addEventListener(
+    repositoryUrlInput.addEventListener(
         'blur',
-        async ({ target: { value: newRemote } }) => {
-            if (!new RegExp(/^(http|https):\/\/(S+)$/).test(newRemote))
+        async ({ target: { value: newRepository } }) => {
+            if (!new RegExp(/^(http|https):\/\/(S+)$/).test(newRepository))
                 alert('请输入网址');
         }
     );
 
-    remoteUrlInput.value = config.remoteUrl;
+    repositoryUrlInput.value = config.repositoryUrl;
 
-    view.querySelector('#paste_remote').addEventListener('click', async () => {
+    view.querySelector('#paste_repository').addEventListener('click', async () => {
         const clipboard = await llnpm.getClipboard();
         if (!new RegExp(/^(http|https):\/\/(S+)$/).test(clipboard))
             return alert('请粘贴网址');
-        remoteUrlInput.value = clipboard;
+        repositoryUrlInput.value = clipboard;
     });
-    view.querySelector('#open_remote').addEventListener('click', () =>
-        llnpm.openUrl(llnpm.getConfig().remote)
+    view.querySelector('#open_repository').addEventListener('click', () =>
+        llnpm.openUrl(llnpm.getConfig().repositoryUrl)
     );
     view.querySelector('#open_project').addEventListener('click', () =>
         llnpm.openUrl(
