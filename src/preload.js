@@ -1,14 +1,19 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 const pluginName = 'not_plugin_marketplace';
+var exposeContent = {};
 
-contextBridge.exposeInMainWorld('llnpm', {
-    setConfig: (content) =>
-        ipcRenderer.invoke(`LiteLoader.${pluginName}.setConfig`, content),
-    getConfig: (content) =>
-        ipcRenderer.invoke(`LiteLoader.${pluginName}.getConfig`, content),
-    openUrl: (content) =>
-        ipcRenderer.invoke(`LiteLoader.${pluginName}.openUrl`, content),
-    getClipboard: (content) =>
-        ipcRenderer.invoke(`LiteLoader.${pluginName}.getClipboard`, content),
-});
+function addIpcInvoke(name) {
+    exposeContent[name] = (...content) =>
+        ipcRenderer.invoke(`LiteLoader.${pluginName}.${name}`, ...content);
+}
+
+addIpcInvoke('setConfig');
+addIpcInvoke('getConfig');
+addIpcInvoke('openUrl');
+addIpcInvoke('getClipboard');
+addIpcInvoke('getPluginList');
+addIpcInvoke('getPluginManifest');
+addIpcInvoke('installPlugin');
+
+contextBridge.exposeInMainWorld('llnpm', exposeContent);
