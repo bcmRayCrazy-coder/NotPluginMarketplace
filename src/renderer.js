@@ -54,35 +54,42 @@ export const onSettingWindowCreated = async (view) => {
     var config = await llnpm.getConfig();
     if (config.err) return alert('获取配置错误:\n', config.err);
 
-    const repositoryUrlInput = view.querySelector('#repository_url');
-    repositoryUrlInput.addEventListener(
-        'input',
-        debounce(async ({ target: { value: newRepository } }) => {
-            if (!new RegExp(/^(http|https):\/\/(S+)$/).test(newRepository)) return;
-            config.repositoryUrl = newRepository;
-            const err = await llnpm.setConfig(config);
-            if (err) alert('更新配置错误:\n' + err);
-        }, 500)
-    );
-    repositoryUrlInput.addEventListener(
-        'blur',
-        async ({ target: { value: newRepository } }) => {
-            if (!new RegExp(/^(http|https):\/\/(S+)$/).test(newRepository))
+    function initUrlInput(name, configKey) {
+        const inputElement = view.querySelector(`#${name}_input`);
+        inputElement.addEventListener(
+            'input',
+            debounce(async ({ target: { value } }) => {
+                if (!new RegExp(filter).test(value)) return;
+                config[configKey] = value;
+                const err = await llnpm.setConfig(config);
+                if (err) alert('更新配置错误:\n' + err);
+            }, 500)
+        );
+        inputElement.addEventListener('blur', async ({ target: { value } }) => {
+            if (!new RegExp(/^(http|https):\/\/(S+)$/).test(value))
                 alert('请输入网址');
-        }
-    );
+        });
 
-    repositoryUrlInput.value = config.repositoryUrl;
+        inputElement.value = config[configKey];
 
-    view.querySelector('#paste_repository').addEventListener('click', async () => {
-        const clipboard = await llnpm.getClipboard();
-        if (!new RegExp(/^(http|https):\/\/(S+)$/).test(clipboard))
-            return alert('请粘贴网址');
-        repositoryUrlInput.value = clipboard;
-    });
-    view.querySelector('#open_repository').addEventListener('click', () =>
-        llnpm.openUrl(llnpm.getConfig().repositoryUrl)
-    );
+        view.querySelector('#paste_' + name).addEventListener(
+            'click',
+            async () => {
+                const clipboard = await llnpm.getClipboard();
+                if (!new RegExp(/^(http|https):\/\/(S+)$/).test(clipboard))
+                    return alert('请粘贴网址');
+                repositoryUrlInput.value = clipboard;
+            }
+        );
+        view.querySelector('#open_' + name).addEventListener('click', () =>
+            llnpm.openUrl(llnpm.getConfig().repositoryUrl)
+        );
+    }
+
+    initUrlInput('repository','repositoryUrl');
+    initUrlInput('remote','remoteUrl');
+    initUrlInput('download','downloadUrl');
+
     view.querySelector('#open_project').addEventListener('click', () =>
         llnpm.openUrl(
             'https://github.com/bcmRayCrazy-coder/NotPluginMarketplace'

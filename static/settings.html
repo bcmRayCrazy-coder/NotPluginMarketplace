@@ -18,10 +18,10 @@
             </setting-item>
             <setting-item data-direction="row">
                 <div style="width: 65%">
-                    <setting-text>插件仓库地址</setting-text>
+                    <setting-text>插件列表地址</setting-text>
                     <input
                         type="text"
-                        id="repository_url"
+                        id="repository_input"
                         spellcheck="false"
                         placeholder="获取中"
                         class="input_text"
@@ -31,6 +31,42 @@
                     >粘贴</setting-button
                 >
                 <setting-button data-type="secondary" id="open_repository"
+                    >打开网址</setting-button
+                >
+            </setting-item>
+            <setting-item data-direction="row">
+                <div style="width: 65%">
+                    <setting-text>Manifest地址</setting-text>
+                    <input
+                        type="text"
+                        id="remote_input"
+                        spellcheck="false"
+                        placeholder="获取中"
+                        class="input_text"
+                    />
+                </div>
+                <setting-button data-type="secondary" id="paste_remote"
+                    >粘贴</setting-button
+                >
+                <setting-button data-type="secondary" id="open_remote"
+                    >打开网址</setting-button
+                >
+            </setting-item>
+            <setting-item data-direction="row">
+                <div style="width: 65%">
+                    <setting-text>下载地址</setting-text>
+                    <input
+                        type="text"
+                        id="download_input"
+                        spellcheck="false"
+                        placeholder="获取中"
+                        class="input_text"
+                    />
+                </div>
+                <setting-button data-type="secondary" id="paste_download"
+                    >粘贴</setting-button
+                >
+                <setting-button data-type="secondary" id="open_download"
                     >打开网址</setting-button
                 >
             </setting-item>

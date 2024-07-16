@@ -19,7 +19,7 @@ function loadPlugin() {
             'https://mirror.ghproxy.com/https://raw.githubusercontent.com/LiteLoaderQQNT/Plugin-List/v4/plugins.json',
         remoteUrl:
             'https://mirror.ghproxy.com/https://raw.githubusercontent.com/{plugin}/{branch}/manifest.json',
-        downloadFileUrl: 'https://mirror.ghproxy.com/{url}',
+        downloadUrl: 'https://mirror.ghproxy.com/{url}',
     };
 
     // 初始化配置
