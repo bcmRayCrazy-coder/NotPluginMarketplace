@@ -58,8 +58,8 @@ export const onSettingWindowCreated = async (view) => {
     remoteUrlInput.addEventListener(
         'input',
         debounce(async ({ target: { value: newRemote } }) => {
+            if (!new RegExp(/^(http|https):\/\/(S+)$/).test(newRemote)) return;
             config.remoteUrl = newRemote;
-            console.log('Config set to', config);
             const err = await llnpm.setConfig(config);
             if (err) alert('更新配置错误:\n' + err);
         }, 500)
