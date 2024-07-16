@@ -11,6 +11,40 @@ function debounce(fn, time) {
     };
 }
 
+// 生成插件元素
+function getPluginElement(plugin, title, version, description, image) {
+    return `<div class="item"><div class="content"><div class="info"><img src="${image}" alt="" /><div><setting-text class="title">${title}</setting-text><setting-text data-type="secondary" class="version" >${version}</setting-text ></div></div><setting-text data-type="secondary" class="description" >${description}</setting-text ></div><div class="action"><setting-button id="view" data-plugin="${plugin}">查看</setting-button><setting-button id="install" data-plugin="${plugin}">安装</setting-button></div></div>`;
+}
+
+// 更新插件列表
+function updatePluginList(view, list = []) {
+    const pluginList = view.querySelector('#plugin_list');
+    pluginList.innerHTML = '';
+
+    const tip = view.querySelector('#tip');
+    if (list.length <= 0) {
+        tip.innerText = '啥也没找到';
+        return;
+    } else {
+        tip.innerText = '';
+    }
+
+    list.forEach(({ plugin, title, version, description, image }) => {
+        pluginList.innerHTML += getPluginElement(
+            plugin,
+            title,
+            version,
+            description,
+            image
+        );
+        pluginList
+            .querySelectorAll('#view')
+            .forEach((viewBtn) =>
+                viewBtn.addEventListener(() => console.log(viewBtn))
+            );
+    });
+}
+
 // 设置
 export const onSettingWindowCreated = async (view) => {
     view.innerHTML = await (

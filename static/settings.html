@@ -53,29 +53,13 @@
                 >
             </setting-item>
         </setting-list>
-        <div data-title="插件列表" class="plugin_list">
+        <div data-title="插件列表" class="plugin-list" id="plugin_list">
             <!-- Template -->
-            <div class="item" data-plugin="a/b">
-                <div class="content">
-                    <div class="info">
-                        <img src="" alt="" />
-                        <div>
-                            <setting-text class="title">Title</setting-text>
-                            <setting-text data-type="secondary" class="version"
-                                >1.0.0</setting-text
-                            >
-                        </div>
-                    </div>
-                    <setting-text data-type="secondary" class="description"
-                        >Description</setting-text
-                    >
-                </div>
-                <div class="action">
-                    <setting-button id="view">查看</setting-button>
-                    <setting-button id="install">安装</setting-button>
-                </div>
-            </div>
+            <!-- <div class="item" data-plugin="a/b"><div class="content"><div class="info"><img src="" alt="" /><div><setting-text class="title">Title</setting-text><setting-text data-type="secondary" class="version" >1.0.0</setting-text ></div></div><setting-text data-type="secondary" class="description" >Description</setting-text ></div><div class="action"><setting-button id="view">查看</setting-button><setting-button id="install">安装</setting-button></div></div> -->
         </div>
+        <setting-text style="width: 100%; text-align: center" id="tip"
+            >搜索中</setting-text
+        >
     </setting-pannel>
 </setting-section>
 <style>
@@ -86,12 +70,12 @@
         color: var(--text_primary);
     }
 
-    .plugin_list {
+    .plugin-list {
         display: grid;
         grid-template-columns: 45% 45%;
     }
 
-    .plugin_list .item {
+    .plugin-list .item {
         background-color: var(--overlay_top);
         display: flex;
         flex-direction: row;
@@ -101,39 +85,39 @@
         justify-content: space-between;
     }
 
-    .plugin_list .item .content .info {
+    .plugin-list .item .content .info {
         height: 34px;
         display: flex;
         flex-direction: row;
         align-items: center;
     }
 
-    .plugin_list .item .content .info img {
+    .plugin-list .item .content .info img {
         border-radius: 6px;
         width: 32px;
         height: 32px;
     }
 
-    .plugin_list .item .content .info div {
+    .plugin-list .item .content .info div {
         margin-left: 6px;
     }
 
-    .plugin_list .item .content .info div .title {
+    .plugin-list .item .content .info div .title {
         font-size: 16px;
         font-weight: bold;
         margin-bottom: 2px;
     }
 
-    .plugin_list .item .content .description {
+    .plugin-list .item .content .description {
         margin-top: 4px;
     }
 
-    .plugin_list .item .action {
+    .plugin-list .item .action {
         display: flex;
         flex-direction: column;
     }
 
-    .plugin_list .item .action * {
+    .plugin-list .item .action * {
         margin-bottom: 4px;
     }
 </style>
